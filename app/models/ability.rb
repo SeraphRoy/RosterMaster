@@ -9,9 +9,8 @@ class Ability
     if (user && user.has_role?(:instructor))
       can :crud, Course
       can :crud, Student
-    else
-      can :read, :all
     end
+    can :read, :all
 
     # Define abilities for the passed in user here. For example:
     #
