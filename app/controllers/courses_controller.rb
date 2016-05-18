@@ -21,6 +21,23 @@ class CoursesController < ApplicationController
   def edit
   end
 
+  def add_student(student)
+    @student = Student.get_student(student)
+    if @student.is_a? String
+      flash[:newstudent] = params[:student].permit(:first_name, :last_name, :email, :studentid)
+      #redirect_to :back, :alert => @student
+    else
+      @course.students << @student
+      #redirect_to :back, :notice => "Student successfully added to course."
+    end
+  end
+
+  def remove_student
+    @student = Student.find_by(studentid: params[:studentid])
+    @student.courses.delete(@course)
+    #redirect_to :back, :alert => @student.first_name << " " << @student.last_name << " has been removed from this class."
+  end
+
   # POST /courses
   # POST /courses.json
   def create

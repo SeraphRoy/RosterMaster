@@ -21,6 +21,16 @@ class StudentsController < ApplicationController
   def edit
   end
 
+  def add_course
+    @student = Student.find(params[:id])
+    @course = @student.courses.build(params[:course_id])
+    if @course.save
+      render :json => @course
+    else
+      render :json => @course, :status => :unprocessable_entity
+    end
+  end
+
   # POST /students
   # POST /students.json
   def create
