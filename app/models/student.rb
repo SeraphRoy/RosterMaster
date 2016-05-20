@@ -20,5 +20,29 @@ class Student < ActiveRecord::Base
         return "The student could not be added."
       end
     end
+    return s
+  end
+
+  def self.new_student(params)
+    ps = params.permit(:first_name, :last_name, :email, :studentid)
+    fn = params[:first_name]
+    sn = params[:last_name]
+    em = params[:email]
+    id = params[:studentid]
+
+    if fn.to_s.strip.length == 0
+      return "The student must have a first name."
+    end
+    if sn.to_s.strip.length == 0
+      return "The student must have a last name."
+    end
+    if em.to_s.strip.length == 0
+      return "The student must have an email address."
+    end
+    if id.to_s.strip.length == 0
+      return "The student must have a student id."
+    end
+
+    return Student.new(params.permit(:first_name, :last_name, :email, :studentid))
   end
 end
